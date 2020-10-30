@@ -10,7 +10,25 @@
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>	
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>	
+	<style>
+		.leaflet-popup-content-wrapper {
+			border-radius: 0;
+			background: black;
+			color: white;
+			font-size: 20px;
+		}
+		.leaflet-popup-content {
+			margin: 5px;
+		
+		}
+		.leaflet-popup-tip{
+			background: black;
+		}
+		.leaflet-popup-close-button{
+			display: none;
+		}
+	</style>
 </head>
 <body>
 <!-- Git Project begins at 10/21/2020 -->
@@ -43,9 +61,15 @@
 		popupAnchor:  [0, -16] // point from which the popup should open relative to the iconAnchor
 });
 
+    var popup = L.popup({
+		maxWidth: 400
+	})
+    .setLatLng([36.12024892166504, -97.07229852676392])
+    .setContent('<img src="http://via.placeholder.com/100x50" />')
+    .openOn(map);
 
-	L.marker([36.12024892166504, -97.07229852676392],{icon:greenIcon}).addTo(map).bindPopup('hi');
-	L.marker([36.52024892166504, -97.37229852676392],{icon:blackIcon}).addTo(map).bindPopup('hi');
+	L.marker([36.12024892166504, -97.07229852676392],{icon:greenIcon}).addTo(map).bindPopup(popup);
+	L.marker([36.52024892166504, -97.37229852676392],{icon:blackIcon}).addTo(map).bindPopup(popup);
 
 
 	var shapeStyle = {
