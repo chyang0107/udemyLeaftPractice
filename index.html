@@ -56,11 +56,31 @@ $(document).ready(function(){
 		popupAnchor:  [0, -16] // point from which the popup should open relative to the iconAnchor
 	});
 
+	var popup = L.popup();
+
 	var geojson = {"type": "FeatureCollection","features": [{"type": "Feature","properties": {},"geometry": {"type": "LineString","coordinates": [[-97.0096206665039,36.17945382412255],[-97.0645523071289,36.17003115949951],[-97.09407806396484,36.146746777814364],[-97.10540771484375,36.13343831245866],[-97.12120056152344,36.11485813852445],[-97.11605072021484,36.08351146584746],
 	[-97.09579467773438,36.07046978723051],[-97.06249237060547,36.06297678099834],[-97.02266693115234,36.06769468295309]]}},{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [-97.0374298095703,36.12401011705408]}},{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [-97.04875946044922,36.19857280714778]}},{"type": "Feature","properties": {},"geometry": {"type": "Polygon","coordinates": [[[-97.02507019042969,36.16005298551354],[-97.00756072998047,36.14231087352999],[-96.98352813720703,36.15423179746419],
 	[-96.97357177734375,36.169754005151695],[-97.02507019042969,36.16005298551354]]]}}]}
 
-	L.geoJSON(geojson).addTo(map);
+	L.geoJSON(geojson, {
+		style: function(feature){
+			return{
+				color: '#000',
+				weight: 0.5
+			}
+		},
+		pointToLayer: function(geojsonPoint, latlng){
+			return L.marker(latlng, {
+					icon: blackIcon
+				});
+
+		},
+		onEachFeature: function(feature, layer){
+			if (feature.geometry.type==='Point'){
+				layer.bindPopup('hello')
+			}
+		},
+	}).addTo(map);
 
 });
 </script>
