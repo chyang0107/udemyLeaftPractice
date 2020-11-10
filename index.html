@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<style>
 		.leaflet-popup-content-wrapper {
 			border-radius: 0;
@@ -35,6 +36,8 @@
 <div id="mapid" style="width: 600px; height: 400px;"></div>
 <script>
 
+$(document).ready(function(){
+
 	var map = L.map('mapid')
 	.setView([36.12024892166504, -97.07229852676392], 9);
 
@@ -45,50 +48,21 @@
 		zoomOffset: -1
 	}).addTo(map);
 
-	<!-- Date 10/22/2020 Pop Up part-1 -->
 
-	var greenIcon = L.icon({
-		iconUrl: 'tree.png',
+	var blackIcon = L.icon({
+		iconUrl: 'map-marker.svg',
 		iconSize:     [32, 37], // size of the icon
 		iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
 		popupAnchor:  [0, -16] // point from which the popup should open relative to the iconAnchor
 	});
 
-		var blackIcon = L.icon({
-		iconUrl: 'map-marker.svg',
-		iconSize:     [32, 37], // size of the icon
-		iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
-		popupAnchor:  [0, -16] // point from which the popup should open relative to the iconAnchor
+	var geojson = {"type": "FeatureCollection","features": [{"type": "Feature","properties": {},"geometry": {"type": "LineString","coordinates": [[-97.0096206665039,36.17945382412255],[-97.0645523071289,36.17003115949951],[-97.09407806396484,36.146746777814364],[-97.10540771484375,36.13343831245866],[-97.12120056152344,36.11485813852445],[-97.11605072021484,36.08351146584746],
+	[-97.09579467773438,36.07046978723051],[-97.06249237060547,36.06297678099834],[-97.02266693115234,36.06769468295309]]}},{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [-97.0374298095703,36.12401011705408]}},{"type": "Feature","properties": {},"geometry": {"type": "Point","coordinates": [-97.04875946044922,36.19857280714778]}},{"type": "Feature","properties": {},"geometry": {"type": "Polygon","coordinates": [[[-97.02507019042969,36.16005298551354],[-97.00756072998047,36.14231087352999],[-96.98352813720703,36.15423179746419],
+	[-96.97357177734375,36.169754005151695],[-97.02507019042969,36.16005298551354]]]}}]}
+
+	L.geoJSON(geojson).addTo(map);
+
 });
-
-    var popup = L.popup({
-		maxWidth: 400
-	})
-    .setLatLng([36.12024892166504, -97.07229852676392])
-    .setContent('<img src="http://via.placeholder.com/100x50" />')
-    .openOn(map);
-
-	L.marker([36.12024892166504, -97.07229852676392],{icon:greenIcon}).addTo(map).bindPopup(popup);
-	L.marker([36.52024892166504, -97.37229852676392],{icon:blackIcon}).addTo(map).bindPopup(popup);
-
-
-	var shapeStyle = {
-		color: '#fff',
-		fillColor: '#000',
-		weight: 0.5,
-		fillOpacity: 0.3
-	}
-
-	L.circle([36.12024892166504, -97.07229852676392], 1000, shapeStyle).addTo(map).bindPopup("I am a circle.");
-
-	L.polygon([
-		[36.12024892166504, -97.47229852676392],
-		[36.13024892166504, -97.07229852676392],
-		[36.12024892166504, -97.97229852676392]
-	],shapeStyle).addTo(map).bindPopup("I am a polygon.");
-
-	map.on('click', onMapClick);
-
 </script>
 
 
